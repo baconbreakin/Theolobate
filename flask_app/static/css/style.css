@@ -1,0 +1,18 @@
+* {
+    padding: 0;
+    margin: 0;
+    background-color: bisque;
+}
+
+h1 {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.col {
+    display: flex;
+    align-items: center;
+}
+
+.inline {
+    display: inline;
+}

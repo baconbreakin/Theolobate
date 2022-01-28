@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theolopin - The Christian Opinion Forum</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div>
+        <div>
+            <h1>Theolopin</h1>
+            <p>The Christian Opinion Forum</p>
+        </div>
+        <div>
+            <a href="/dashboard">Dashboard</a>
+            <a href="/logout">Logout</a>
+        </div>
+    </div>
+    <h2>{{post.user['first_name']}} {{post.user['last_name']}}</h2>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p>{{message}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <form action="/post/{{post['id']}}/update" method="post">
+        <textarea name="text" cols="30" rows="10">{{post['text']}}</textarea>
+        <input type="submit" value="Update">
+    </form>
+</body>
+</html>

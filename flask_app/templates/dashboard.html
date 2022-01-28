@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theolopin - The Christian Opinion Forum</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div>
+        <div class="col">
+            <h1 class="inline">Theolopin</h1>
+            <p class="inline">The Christian Opinion Forum</p>
+        </div>
+        <div class="col">
+            <a href="/logout">Logout</a>
+        </div>
+    </div>
+    <h2>Welcome {{user_in_db['first_name']}}!</h2>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p>{{message}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <form action="/post" method="post">
+        <textarea name="text" cols="30" rows="10" value="Start a new debate with us!"></textarea>
+        <input type="submit" value="Post">
+    </form>
+    <div>
+        {% if posts %}
+            {% for post in posts %}
+                <div>
+                    <div>
+                        <p>{{post.user['first_name']}} {{post.user['last_name']}}</p>
+                        <p>{{post['updated_at']}}</p>
+                    </div>
+                    <a href="/post/{{post['id']}}">{{post['text']}}</a>
+                        <div>
+                            {% if post['user_id'] == session['user_id'] %}
+                                <a href="/post/{{post['id']}}/delete">Delete</a>
+                                <a href="/post/{{post['id']}}/edit">Edit</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</body>
+</html>
